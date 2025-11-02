@@ -87,4 +87,4 @@ jobs:
   #         push: true
   #         tags: |
   #           bsalunke/java-app:latest
-  #           bsalunke/java-app:${{ github.sha }}
+  #           bsalunke/java-app:${{ github.sha }} 
