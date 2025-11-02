@@ -17,8 +17,8 @@ jobs:
 
       - name: Install GitHub Copilot CLI
         run: |
-          npm install -g @githubnext/github-copilot-cli
-          github-copilot-cli --version || echo "Copilot CLI installed"
+          npm install -g @github/copilot
+          copilot --version || echo "Copilot CLI installed"
 
       - name: Authenticate with GitHub token
         run: |
@@ -32,8 +32,8 @@ jobs:
           PROMPT='Explain the architecture of this codebase'
           echo "Prompt: $PROMPT"
           OUTFILE=copilot-output.txt
-          # Use the new Copilot CLI command
-          echo "$PROMPT" | github-copilot-cli 2>&1 | tee "$OUTFILE" || true
+          # Use the correct Copilot CLI command with -p flag
+          copilot -p "$PROMPT" 2>&1 | tee "$OUTFILE" || true
 
       # - name: Upload Copilot output
       #   uses: actions/upload-artifact@v4
