@@ -53,7 +53,7 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           echo "configure mcp server for gemini cli"
-          gemini mcp add --transport http https://api.githubcopilot.com/mcp/ --header "Authorization: Bearer $MY_GITHUB_SECRET" --header "content-type: application/json"
+          gemini mcp add githubmcpserver https://api.githubcopilot.com/mcp/ --header "Authorization: Bearer $MY_GITHUB_SECRET" --header "content-type: application/json" --transport http
           echo "Running Gemini CLI to list all repositories..."
           gemini -p "list all my repositories for use bsalunke" --yolo
           echo "Running Gemini CLI to explain codebase architecture..."
