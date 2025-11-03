@@ -51,6 +51,7 @@ jobs:
         # GEMINI_API_KEY must be configured as a repository secret
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          MY_GITHUB_SECRET: ${{ secrets.MY_GITHUB_SECRET }}
         run: |
           echo "configure mcp server for gemini cli"
           gemini mcp add githubmcpserver https://api.githubcopilot.com/mcp/ --header "Authorization: Bearer $MY_GITHUB_SECRET" --header "content-type: application/json" --transport http
