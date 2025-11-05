@@ -71,7 +71,7 @@ jobs:
           echo "Running Gemini CLI to perform SCA scan and create GitHub issue if vulnerabilities found..."
           #gemini -p "Perform an SCA scan on the current repository using the configured Qualys tool. Once the scan is complete, review the findings. If vulnerabilities are found, use the @github tool to create a new GitHub issue titled "SCA Scan: Qualys Vulnerability Findings Summary" and assign it to the user "Github Copilot". Summarize the key vulnerabilities from the scan results in the issue description."
 
-  push:
+  # push:
   #   name: Push image to Docker Hub
   #   runs-on: ubuntu-latest
   #   needs: build-and-scan
@@ -100,4 +100,4 @@ jobs:
   #         push: true
   #         tags: |
   #           bsalunke/java-app:latest
-  #           bsalunke/java-app:${{ github.sha }} 
+  #           bsalunke/java-app:${{ github.sha }}
