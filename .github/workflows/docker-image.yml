@@ -69,7 +69,7 @@ jobs:
           gemini mcp list
 
           echo "Running Gemini CLI to perform SCA scan and create GitHub issue if vulnerabilities found..."
-          gemini -p "Perform an SCA scan on the current repository using the configured Qualys tool. Once the scan is complete, review the findings. If vulnerabilities are found, use the @github tool to create a new GitHub issue titled "SCA Scan: Qualys Vulnerability Findings Summary" and assign it to the user "Github Copilot". Summarize the key vulnerabilities from the scan results in the issue description."
+          gemini "Perform an SCA scan on the current repository using the configured Qualys tool. Once the scan is complete, review the findings. If vulnerabilities are found, use the @github tool to create a new GitHub issue titled "SCA Scan: Qualys Vulnerability Findings Summary" and assign it to the user "Github Copilot". Summarize the key vulnerabilities from the scan results in the issue description." --yolo
 
   # push:
   #   name: Push image to Docker Hub
