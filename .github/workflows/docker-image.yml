@@ -59,16 +59,19 @@ jobs:
           wget https://github.com/bsalunke/scanner/releases/download/2.0/scanner.tar.gz -O scanner.tar.gz
           tar -xzf scanner.tar.gz
           ./scanner --version
-          # echo "configure mcp server for gemini cli"
-          # gemini mcp add githubmcpserver https://api.githubcopilot.com/mcp/ --header "Authorization: Bearer $MY_GITHUB_SECRET" --header "content-type: application/json" --transport http
-          # gemini mcp list
-          # #gemini -p "@github create a issue under bsalunke/java-app repostoiry with title 'test issue create 3 ' and body 'test issue body 3' " --yolo
-          # #echo "Running Gemini CLI to explain codebase architecture..."
-          # #gemini -p "Explain the architecture of this codebase" --yolo
-          # echo "Running Gemini CLI to perform SCA scan and create GitHub issue if vulnerabilities found..."
-          # #gemini -p "Perform an SCA scan on the current repository using the configured Qualys tool. Once the scan is complete, review the findings. If vulnerabilities are found, use the @github tool to create a new GitHub issue titled "SCA Scan: Qualys Vulnerability Findings Summary" and assign it to the user "Github Copilot". Summarize the key vulnerabilities from the scan results in the issue description."
 
-  # push:
+          echo "Adding Qualys MCP server for Gemini CLI"
+          gemini mcp add --transport stdio -e ACCESS_TOKEN=$QUALYS_ACCESS_TOKEN -e GATEWAY_URL=$QUALYS_GATEWAY_URL qcsmcpserver `pwd`/scanner  mcp-server
+
+          echo "configure mcp server for gemini cli"
+          gemini mcp add githubmcpserver https://api.githubcopilot.com/mcp/ --header "Authorization: Bearer $MY_GITHUB_SECRET" --header "content-type: application/json" --transport http
+
+          gemini mcp list
+
+          echo "Running Gemini CLI to perform SCA scan and create GitHub issue if vulnerabilities found..."
+          #gemini -p "Perform an SCA scan on the current repository using the configured Qualys tool. Once the scan is complete, review the findings. If vulnerabilities are found, use the @github tool to create a new GitHub issue titled "SCA Scan: Qualys Vulnerability Findings Summary" and assign it to the user "Github Copilot". Summarize the key vulnerabilities from the scan results in the issue description."
+
+  push:
   #   name: Push image to Docker Hub
   #   runs-on: ubuntu-latest
   #   needs: build-and-scan
