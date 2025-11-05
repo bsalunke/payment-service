@@ -69,7 +69,34 @@ jobs:
           gemini mcp list
 
           echo "Running Gemini CLI to perform SCA scan and create GitHub issue if vulnerabilities found..."
-          gemini "Perform an SCA scan on the current repository using the configured Qualys tool. Once the scan is complete, review the findings. If vulnerabilities are found, use the @github tool to create a new GitHub issue titled "SCA Scan: Qualys Vulnerability Findings Summary" and assign it to the user "Github Copilot". Summarize the key vulnerabilities from the scan results in the issue description." --yolo
+          #gemini "Perform an SCA scan on the current repository using the configured Qualys tool. Once the scan is complete, review the findings. If vulnerabilities are found, use the @github tool to create a new GitHub issue titled "SCA Scan: Qualys Vulnerability Findings Summary" and assign it to the user "Github Copilot". Summarize the key vulnerabilities from the scan results in the issue description." --yolo
+          gemini --yolo << 'EOF'
+          Run a Software Composition Analysis (SCA) scan on the current repository using the configured Qualys tool.
+
+          After the scan completes:
+          1) Parse and summarize the key vulnerability findings.
+          2) For each vulnerable package, extract and include:
+             - Package name and version
+             - CVE/QID identifier
+             - Severity and CVSS/QDS score (if available)
+             - File path(s) where the package was found in the repo
+             - Patch availability (if provided by scanner)
+
+          Then create a GitHub issue using the @github tool with the title:
+          SCA Scan: Qualys Vulnerability Report
+
+          In the issue body, include:
+          - Summary of vulnerabilities detected
+          - A Markdown table of vulnerabilities including file paths
+          - Remediation guidance for each vulnerability
+          - Note if patches are available
+
+          Assign the issue to @github-copilot for automated remediation.
+          Add labels: security, sca, automated-scan.
+
+          If no vulnerabilities are found:
+          Print '✅ No SCA vulnerabilities detected by Qualys.' and do not create an issue.
+          EOF
 
   # push:
   #   name: Push image to Docker Hub
